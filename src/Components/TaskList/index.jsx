@@ -2,20 +2,20 @@ import { StyleSheet, FlatList, View } from "react-native";
 import React from "react";
 import RenderItemTask from "./RenderItemTask";
 
-const TaskList = ({
-    list,
-    onPressTask
-}) => {
+const TaskList = ({ list, onPressTask, deleteTask }) => {
     return (
-        <View style={styles.view2}>
-            <FlatList
-                data={list}
-                keyExtractor={(task) => task.id}
-                renderItem={({ item }) => RenderItemTask({ item, onPressTask })}
-            />
-        </View>
+      <View style={styles.view2}>
+        <FlatList
+          data={list}
+          keyExtractor={(task) => task.id}
+          renderItem={({ item }) => (
+            <RenderItemTask item={item} onPressTask={onPressTask} deleteTask={deleteTask} />
+          )}
+        />
+      </View>
     );
-};
+  };
+  
 
 export default TaskList;
 

@@ -26,25 +26,20 @@ const MainScreen = () => {
     setModalVisible(!modalVisible);
   };
 
+  const deleteTask = (taskId) => {
+    setList((prevList) => prevList.filter((task) => task.id !== taskId));
+  };
+
   return (
     <View style={styles.container}>
-      
-      <TopBar 
-      input={input} 
-      onAddTask={onAddTask} 
-      setInput={setInput} 
-      />
-
-<TaskList
-  list={list}
-  onPressTask={onPressTask}
-/>
-
+      <TopBar input={input} onAddTask={onAddTask} setInput={setInput} />
+      <TaskList list={list} onPressTask={onPressTask} deleteTask={deleteTask} />
 
       <ModalTask
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         taskActive={taskActive}
+        deleteTask={deleteTask}
       />
     </View>
   );

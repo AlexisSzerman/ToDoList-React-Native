@@ -5,6 +5,7 @@ const ModalTask = ({
     modalVisible,
     setModalVisible,
     taskActive,
+    deleteTask
 }) => {
     return (
         <Modal
@@ -19,23 +20,21 @@ const ModalTask = ({
                 <View style={styles.modalView}>
                     <Text style={styles.modalText}>{taskActive.task}</Text>
                     <View style={styles.buttonContainer}>
-                        <Pressable
-                            style={[styles.button, styles.buttonDone]}
-                            onPress={() => setModalVisible(!modalVisible)}
-                        >
-                            <Text style={styles.textStyle}>Lista!</Text>
-                        </Pressable>
+                    <Pressable
+    style={[styles.button, styles.buttonDone]}
+    onPress={() => {
+        setModalVisible(!modalVisible);
+        deleteTask(taskActive.id);
+    }}
+>
+    <Text style={styles.textStyle}>Lista!</Text>
+</Pressable>
+
                         <Pressable
                             style={[styles.button, styles.buttonNotyet]}
                             onPress={() => setModalVisible(!modalVisible)}
                         >
                             <Text style={styles.textStyle}>Falta</Text>
-                        </Pressable>
-                        <Pressable
-                            style={[styles.button, styles.buttonClose]}
-                            onPress={() => setModalVisible(!modalVisible)}
-                        >
-                            <Text style={styles.textStyle}>Cancel</Text>
                         </Pressable>
                     </View>
                 </View>
@@ -77,9 +76,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 10,
         elevation: 2,
-    },
-    buttonClose: {
-        backgroundColor: "grey",
     },
     buttonDone: {
         backgroundColor: "black",
