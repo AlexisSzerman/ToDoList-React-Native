@@ -5,11 +5,15 @@ const RenderItemTask = ({ item, onPressTask, deleteTask }) => {
   const handleDeleteTask = () => {
     deleteTask(item.id);
   };
+  
+  const taskTextStyle = item.completed
+    ? [styles.taskText, styles.completedTaskText]
+    : styles.taskText;
 
   return (
     <Pressable onPress={() => onPressTask(item)}>
       <View style={styles.task} key={item.id}>
-        <Text style={styles.taskText}>{item.task}</Text>
+      <Text style={taskTextStyle}>{item.task}</Text>
         <Pressable onPress={handleDeleteTask} style={styles.deleteButton}>
           <Text style={styles.deleteButtonText}>X</Text>
         </Pressable>
@@ -45,6 +49,11 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: 'bold',
   },
+  completedTaskText: {
+    textDecorationLine: "line-through",
+    opacity: 0.5,
+    fontWeight: 'bold'
+  }
 });
 
 export default RenderItemTask;

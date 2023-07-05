@@ -4,6 +4,7 @@ import TopBar from "../Components/TopBar";
 import TaskList from "../Components/TaskList";
 import ModalTask from "../Components/Modal";
 
+
 const MainScreen = () => {
   const [list, setList] = useState([]);
   const [input, setInput] = useState("");
@@ -19,6 +20,7 @@ const MainScreen = () => {
         completed: false,
       },
     ]);
+    setInput("");
   };
 
   const onPressTask = (task) => {
@@ -29,18 +31,41 @@ const MainScreen = () => {
   const deleteTask = (taskId) => {
     setList((prevList) => prevList.filter((task) => task.id !== taskId));
   };
+  
+  const completedTask = (taskId) => {
+    setList((prevList) =>
+      prevList.map((task) => {
+        if (task.id === taskId) {
+          return { ...task, completed: true };
+        }
+        return task;
+      })
+    );
+    setModalVisible(false);
+  };
 
   return (
     <View style={styles.container}>
-      <TopBar input={input} onAddTask={onAddTask} setInput={setInput} />
-      <TaskList list={list} onPressTask={onPressTask} deleteTask={deleteTask} />
+        
+        <TopBar 
+        input={input} 
+        onAddTask={onAddTask} 
+        setInput={setInput} 
+        />
+        
+        <TaskList 
+        list={list} 
+        onPressTask={onPressTask} 
+        deleteTask={deleteTask} 
+        />
 
-      <ModalTask
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-        taskActive={taskActive}
-        deleteTask={deleteTask}
-      />
+        <ModalTask 
+        modalVisible={modalVisible} 
+        setModalVisible={setModalVisible} 
+        taskActive={taskActive} 
+        completedTask={completedTask}
+        />
+
     </View>
   );
 };
